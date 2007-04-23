@@ -1,5 +1,5 @@
 %define name	numactl
-%define version	0.9
+%define version	0.9.10
 %define release	%mkrel 1
 %define libname	%mklibname numa 1
 
@@ -8,7 +8,7 @@ Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 Source0:	%{name}-%{version}.tar.bz2
-Patch0:		%{name}-%{version}-DESTDIR.patch.bz2
+Patch0:		%{name}-0.9-DESTDIR.patch.bz2
 License:	GPL/LGPL
 Group:		System/Configuration/Hardware
 Url:		http://www.firstfloor.org/~andi/numa.html
@@ -40,14 +40,16 @@ applications using different NUMA policies.
 
 %prep
 %setup -q
-%patch0 -p0 -b .DESTDIR
+#%patch0 -p0 -b .DESTDIR
 
 %build
 %make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%makeinstall_std
+mkdir -p $RPM_BUILD_ROOT/%_mandir/man5/
+%makeinstall_std prefix=$RPM_BUILD_ROOT/usr
+
 
 %post -n %{libname} -p /sbin/ldconfig
 %postun -n %{libname} -p /sbin/ldconfig
@@ -62,7 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/numactl
 %{_bindir}/numademo
 %{_bindir}/numastat
+%{_bindir}/migratepages
 %{_mandir}/man8/numactl.8*
+%{_mandir}/man5/*
 
 %files -n %{libname}
 %defattr(-,root,root)
@@ -73,6 +77,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libnuma.so
 %{_includedir}/numa.h
 %{_includedir}/numaif.h
-%{_defaultdocdir}/%{name}/examples/numademo.c
-%{_mandir}/man2/*
-%{_mandir}/man3/numa*
+%{_defaultdocdir}/%{name}-%{version}/*
+%{_mandir}/man3/*
