@@ -1,5 +1,5 @@
 %define name	numactl
-%define version	0.9.10
+%define version	0.9.11
 %define release	%mkrel 1
 %define libname	%mklibname numa 1
 
@@ -11,7 +11,7 @@ Source0:	%{name}-%{version}.tar.bz2
 Patch0:		%{name}-0.9-DESTDIR.patch.bz2
 License:	GPL/LGPL
 Group:		System/Configuration/Hardware
-Url:		http://www.firstfloor.org/~andi/numa.html
+Url:		ftp://ftp.suse.com/pub/people/ak/numa
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	%{libname} = %{version}-%{release}
 ExclusiveArch:	x86_64 ia64
