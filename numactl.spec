@@ -1,5 +1,5 @@
 %define name	numactl
-%define version	0.9.11
+%define version 1.0.1	
 %define release	%mkrel 1
 %define libname	%mklibname numa 1
 
@@ -77,5 +77,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libnuma.so
 %{_includedir}/numa.h
 %{_includedir}/numaif.h
-%{_defaultdocdir}/%{name}-%{version}/*
+%{_defaultdocdir}/%{name}/*
 %{_mandir}/man3/*
