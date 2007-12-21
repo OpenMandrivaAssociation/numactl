@@ -12,6 +12,7 @@ Patch0:		%{name}-0.9-DESTDIR.patch.bz2
 License:	GPL/LGPL
 Group:		System/Configuration/Hardware
 Url:		ftp://ftp.suse.com/pub/people/ak/numa
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	%{libname} = %{version}-%{release}
 ExclusiveArch:	x86_64 ia64
 
