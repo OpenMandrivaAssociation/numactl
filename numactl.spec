@@ -1,6 +1,6 @@
 %define name	numactl
 %define version 1.0.1	
-%define release	%mkrel 1
+%define release	%mkrel 3
 %define libname	%mklibname numa 1
 
 Summary:	Simple NUMA policy support
