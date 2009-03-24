@@ -1,6 +1,6 @@
 %define name	numactl
 %define version 2.0.2
-%define release	%mkrel 1
+%define release	%mkrel 2
 %define libname	%mklibname numa 1
 
 Summary:	Simple NUMA policy support
@@ -15,7 +15,7 @@ Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	%{libname} = %{version}-%{release}
-ExclusiveArch:	x86_64 ia64
+ExclusiveArch:	%{ix86} x86_64 ia64
 
 %description
 This package contains the `numactl' program to run other programs with
@@ -34,6 +34,7 @@ Summary:	Headers and libraries for NUMA policy
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
+Provides:	numa-devel = %{version}-%{release}
 
 %description -n	%{libname}-devel
 This package contains headers and libraries useful for developing
