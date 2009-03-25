@@ -1,6 +1,6 @@
 %define name	numactl
 %define version 2.0.2
-%define release	%mkrel 2
+%define release	%mkrel 3
 %define libname	%mklibname numa 1
 
 Summary:	Simple NUMA policy support
@@ -10,6 +10,7 @@ Release:	%{release}
 Source0:	%{name}-%{version}.tar.bz2
 Patch0:		%{name}-0.9-DESTDIR.patch
 Patch1:		%{name}-%{version}-clearcache-fix.patch
+Patch2:		%{name}-%{version}-remove-warning.patch
 License:	GPL/LGPL
 Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
@@ -43,6 +44,7 @@ applications using different NUMA policies.
 %prep
 %setup -q
 %patch1 -p1 -b .cache
+%patch2 -p1 -b .warning
 
 %build
 %make CFLAGS="%{optflags} -I. -fPIC"
