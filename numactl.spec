@@ -1,22 +1,21 @@
 %define name	numactl
 %define version 2.0.2
-%define release	%mkrel 3
+%define release	%mkrel 1
 %define libname	%mklibname numa 1
+%define develname	%mklibname numa -d
 
 Summary:	Simple NUMA policy support
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-Source0:	%{name}-%{version}.tar.bz2
-Patch0:		%{name}-0.9-DESTDIR.patch
-Patch1:		%{name}-%{version}-clearcache-fix.patch
-Patch2:		%{name}-%{version}-remove-warning.patch
 License:	GPL/LGPL
 Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Requires:	%{libname} = %{version}-%{release}
+Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
+Patch0:		numactl-2.0.2-fix-fmt-errors.patch
+Patch1:		numactl-2.0.2-clearcache-fix.patch
 ExclusiveArch:	%{ix86} x86_64 ia64
+BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 This package contains the `numactl' program to run other programs with
@@ -30,29 +29,29 @@ Requires:	kernel >= 2.6.7
 %description -n	%{libname}
 This package contains the dynamic libraries for NUMA policy support.
 
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	Headers and libraries for NUMA policy
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
-Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	numa-devel = %{version}-%{release}
+Obsoletes:  %mklibname numa -d 1
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 This package contains headers and libraries useful for developing
 applications using different NUMA policies.
 
 %prep
 %setup -q
-%patch1 -p1 -b .cache
-%patch2 -p1 -b .warning
+%patch0 -p1
+%patch1 -p1
 
 %build
 %make CFLAGS="%{optflags} -I. -fPIC"
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%_mandir/man5/
-%makeinstall_std prefix=$RPM_BUILD_ROOT/usr
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%_mandir/man5/
+%makeinstall_std prefix=%{buildroot}/usr
 
 
 %if %mdkversion < 200900
@@ -64,7 +63,7 @@ mkdir -p $RPM_BUILD_ROOT/%_mandir/man5/
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
@@ -82,7 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_libdir}/libnuma.so.*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %{_libdir}/libnuma.so
 %{_libdir}/libnuma.a
