@@ -1,6 +1,6 @@
 %define name	numactl
 %define version 2.0.3
-%define release	%mkrel 0.rc3.1
+%define release	%mkrel 0.rc3.2
 %define libname	%mklibname numa 1
 %define develname	%mklibname numa -d
 
@@ -13,7 +13,6 @@ Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
 Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}-rc3.tar.gz
 Patch0:		numactl-2.0.2-fix-fmt-errors.patch
-Patch1:		numactl-2.0.2-clearcache-fix.patch
 Patch2:		numactl-2.0.3-rc3-distance_parsing.patch
 ExclusiveArch:	%{ix86} x86_64 ia64
 BuildRoot:	%{_tmppath}/%{name}-%{version}
@@ -44,11 +43,10 @@ applications using different NUMA policies.
 %prep
 %setup -q -n numactl-2.0.3-rc3
 %patch0 -p1
-%patch1 -p1
 %patch2 -p1 
 
 %build
-%make CFLAGS="%{optflags} -I. -fPIC"
+%make CFLAGS="%{optflags} -I."
 
 %install
 rm -rf %{buildroot}
