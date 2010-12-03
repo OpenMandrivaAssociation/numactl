@@ -1,6 +1,6 @@
 %define name	numactl
 %define version 2.0.3
-%define release	%mkrel 2
+%define release	%mkrel 3
 %define libname	%mklibname numa 1
 %define develname	%mklibname numa -d
 
