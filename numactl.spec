@@ -1,6 +1,6 @@
 %define name	numactl
-%define version 2.0.3
-%define release	%mkrel 4
+%define version 2.0.7
+%define release	%mkrel 1
 %define libname	%mklibname numa 1
 %define develname	%mklibname numa -d
 
@@ -12,9 +12,8 @@ License:	LGPLv2/GPLv2
 Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
 Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
-# Fedora patch, fixes RH bug #499633
-# (libnuma: Warning: /sys not mounted or invalid)
-Patch2:		numactl-2.0.3-rc3-distance_parsing.patch
+# Patch from Fedora
+Patch1:		numactl-2.0.3-rc3-no-nodes-warning.patch
 ExclusiveArch:	%{ix86} x86_64 ia64
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
@@ -43,7 +42,7 @@ applications using different NUMA policies.
 
 %prep
 %setup -q 
-%patch2 -p1 
+%patch1 -p1 
 
 %build
 %make CFLAGS="%{optflags} -I."
@@ -87,3 +86,4 @@ rm -rf %{buildroot}
 %{_includedir}/numaif.h
 %{_includedir}/numacompat1.h
 %{_mandir}/man3/*
+
