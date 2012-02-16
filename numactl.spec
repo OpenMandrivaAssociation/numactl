@@ -28,8 +28,8 @@ This package contains the dynamic libraries for NUMA policy support.
 %package -n	%{devname}
 Summary:	Headers and libraries for NUMA policy
 Group:		Development/C
-Requires:	%{libname} = %{version}-%{release}
-Provides:	numa-devel = %{version}-%{release}
+Requires:	%{libname} = %{EVRD}
+Provides:	numa-devel = %{EVRD}
 Obsoletes:	%mklibname numa -d 1
 
 %description -n	%{devname}
