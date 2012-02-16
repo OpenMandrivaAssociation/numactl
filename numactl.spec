@@ -24,7 +24,6 @@ a specific NUMA policy.
 %package -n	%{libname}
 Summary:	Runtime libraries for NUMA policy support
 Group:		System/Libraries
-Requires:	kernel >= 2.6.7
 
 %description -n	%{libname}
 This package contains the dynamic libraries for NUMA policy support.
