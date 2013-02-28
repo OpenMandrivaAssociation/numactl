@@ -10,9 +10,6 @@ License:	LGPLv2/GPLv2
 Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
 Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
-# Fedora patch, fixes RH bug #499633
-# (libnuma: Warning: /sys not mounted or invalid)
-Patch2:		numactl-2.0.3-rc3-distance_parsing.patch
 ExclusiveArch:	%{ix86} x86_64 ia64
 
 %description
@@ -39,8 +36,7 @@ This package contains headers and libraries useful for developing
 applications using different NUMA policies.
 
 %prep
-%setup -q 
-%patch2 -p1 
+%setup -q
 
 %build
 %setup_compile_flags
@@ -58,7 +54,7 @@ applications using different NUMA policies.
 %{_bindir}/numastat
 %{_bindir}/migratepages
 %{_bindir}/migspeed
-%{_mandir}/man8/numactl.8*
+%{_mandir}/man8/*.8*
 
 %files -n %{libname}
 %{_libdir}/libnuma.so.%{major}*
