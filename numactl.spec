@@ -1,13 +1,11 @@
-%define name	numactl
-%define version 2.0.3
-%define release	%mkrel 5
-%define libname	%mklibname numa 1
-%define develname	%mklibname numa -d
+%define major 1
+%define libname %mklibname numa %{major}
+%define develname %mklibname numa -d
 
 Summary:	Simple NUMA policy support
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		numactl
+Version:	2.0.8
+Release:	1
 License:	LGPLv2/GPLv2
 Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
@@ -16,7 +14,6 @@ Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.
 # (libnuma: Warning: /sys not mounted or invalid)
 Patch2:		numactl-2.0.3-rc3-distance_parsing.patch
 ExclusiveArch:	%{ix86} x86_64 ia64
-BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 This package contains the `numactl' program to run other programs with
@@ -35,7 +32,7 @@ Summary:	Headers and libraries for NUMA policy
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	numa-devel = %{version}-%{release}
-Obsoletes:  %mklibname numa -d 1
+Obsoletes:	%mklibname numa -d 1
 
 %description -n	%{develname}
 This package contains headers and libraries useful for developing
@@ -46,26 +43,14 @@ applications using different NUMA policies.
 %patch2 -p1 
 
 %build
+%setup_compile_flags
+
 %make CFLAGS="%{optflags} -I."
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std prefix=%{buildroot}/usr
 
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc README CHANGES
 %{_bindir}/memhog
 %{_bindir}/numactl
@@ -76,11 +61,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/numactl.8*
 
 %files -n %{libname}
-%defattr(-,root,root)
-%{_libdir}/libnuma.so.*
+%{_libdir}/libnuma.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %{_libdir}/libnuma.so
 %{_libdir}/libnuma.a
 %{_includedir}/numa.h
