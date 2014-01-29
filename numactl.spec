@@ -4,8 +4,8 @@
 
 Summary:	Simple NUMA policy support
 Name:		numactl
-Version:	2.0.8
-Release:	9
+Version:	2.0.9
+Release:	1
 License:	LGPLv2/GPLv2
 Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
@@ -15,35 +15,6 @@ ExclusiveArch:	%{ix86} x86_64 ia64
 %description
 This package contains the `numactl' program to run other programs with
 a specific NUMA policy.
-
-%package -n	%{libname}
-Summary:	Runtime libraries for NUMA policy support
-Group:		System/Libraries
-Requires:	kernel >= 2.6.7
-
-%description -n	%{libname}
-This package contains the dynamic libraries for NUMA policy support.
-
-%package -n	%{devname}
-Summary:	Headers and libraries for NUMA policy
-Group:		Development/C
-Requires:	%{libname} = %{version}-%{release}
-Provides:	numa-devel = %{version}-%{release}
-
-%description -n	%{devname}
-This package contains headers and libraries useful for developing
-applications using different NUMA policies.
-
-%prep
-%setup -q
-
-%build
-%setup_compile_flags
-
-%make CFLAGS="%{optflags} -I."
-
-%install
-%makeinstall_std prefix=%{buildroot}/usr
 
 %files
 %doc README CHANGES
@@ -55,8 +26,29 @@ applications using different NUMA policies.
 %{_bindir}/migspeed
 %{_mandir}/man8/*.8*
 
+#----------------------------------------------------------------------------
+
+%package -n	%{libname}
+Summary:	Runtime libraries for NUMA policy support
+Group:		System/Libraries
+
+%description -n	%{libname}
+This package contains the dynamic libraries for NUMA policy support.
+
 %files -n %{libname}
 %{_libdir}/libnuma.so.%{major}*
+
+#----------------------------------------------------------------------------
+
+%package -n	%{devname}
+Summary:	Headers and libraries for NUMA policy
+Group:		Development/C
+Requires:	%{libname} = %{version}-%{release}
+Provides:	numa-devel = %{version}-%{release}
+
+%description -n	%{devname}
+This package contains headers and libraries useful for developing
+applications using different NUMA policies.
 
 %files -n %{devname}
 %{_libdir}/libnuma.so
@@ -65,4 +57,17 @@ applications using different NUMA policies.
 %{_includedir}/numaif.h
 %{_includedir}/numacompat1.h
 %{_mandir}/man3/*
+
+#----------------------------------------------------------------------------
+
+%prep
+%setup -q
+
+%build
+%setup_compile_flags
+
+%make CFLAGS="%{optflags} -I."
+
+%install
+%makeinstall_std prefix=%{buildroot}/usr
 
