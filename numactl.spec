@@ -5,7 +5,7 @@
 Summary:	Simple NUMA policy support
 Name:		numactl
 Version:	2.0.9
-Release:	3
+Release:	4
 License:	LGPLv2/GPLv2
 Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
