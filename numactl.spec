@@ -1,6 +1,7 @@
 %define major 1
 %define libname %mklibname numa %{major}
 %define devname %mklibname numa -d
+%define _disable_lto 1
 
 Summary:	Simple NUMA policy support
 Name:		numactl
@@ -65,6 +66,7 @@ applications using different NUMA policies.
 
 %build
 %setup_compile_flags
+export CC=gcc
 
 %make CFLAGS="%{optflags} -I."
 
