@@ -67,7 +67,7 @@ applications using different NUMA policies.
 
 %build
 %setup_compile_flags
-%configure --prefix=/usr --libdir=%{_libdir} --enable-static
+%configure2_5x --prefix=/usr --libdir=%{_libdir} --enable-static
 
 %make CFLAGS="%{optflags} -I."
 
