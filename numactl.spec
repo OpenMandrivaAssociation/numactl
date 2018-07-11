@@ -11,7 +11,7 @@ License:	LGPLv2/GPLv2
 Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
 Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
-ExclusiveArch:	%{ix86} x86_64 ia64 aarch64
+ExclusiveArch:	%{ix86} x86_64 ia64 aarch64 znver1
 
 %description
 This package contains the `numactl' program to run other programs with
