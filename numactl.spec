@@ -5,13 +5,13 @@
 
 Summary:	Simple NUMA policy support
 Name:		numactl
-Version:	2.0.11
-Release:	3
+Version:	2.0.12
+Release:	1
 License:	LGPLv2/GPLv2
 Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
-Source0:	ftp://oss.sgi.com/www/projects/libnuma/download/%{name}-%{version}.tar.gz
-ExclusiveArch:	%{ix86} x86_64 ia64 aarch64 znver1
+Source0:	https://github.com/numactl/numactl/releases/download/v%{version}/%{name}-%{version}.tar.gz
+ExclusiveArch:	%{ix86} %{x86_64} ia64 aarch64
 
 %description
 This package contains the `numactl' program to run other programs with
@@ -63,13 +63,13 @@ applications using different NUMA policies.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %setup_compile_flags
-%configure2_5x --prefix=/usr --libdir=%{_libdir} --enable-static
+%configure --prefix=/usr --libdir=%{_libdir} --enable-static
 
-%make CFLAGS="%{optflags} -I."
+%make_build CFLAGS="%{optflags} -I."
 
 %install
-%makeinstall_std prefix=%{buildroot}/usr
+%make_install prefix=%{buildroot}/usr
