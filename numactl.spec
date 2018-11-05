@@ -56,6 +56,7 @@ applications using different NUMA policies.
 %{_includedir}/numa.h
 %{_includedir}/numaif.h
 %{_includedir}/numacompat1.h
+%{_libdir}/pkgconfig/numa.pc
 %{_mandir}/man3/*
 %{_mandir}/man2/*
 
