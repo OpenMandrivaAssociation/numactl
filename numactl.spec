@@ -18,7 +18,6 @@ This package contains the `numactl' program to run other programs with
 a specific NUMA policy.
 
 %files
-%doc README CHANGES
 %{_bindir}/memhog
 %{_bindir}/numactl
 %{_bindir}/numademo
