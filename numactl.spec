@@ -5,7 +5,7 @@
 
 Summary:	Simple NUMA policy support
 Name:		numactl
-Version:	2.0.12
+Version:	2.0.13
 Release:	1
 License:	LGPLv2/GPLv2
 Group:		System/Configuration/Hardware
