@@ -1,12 +1,11 @@
 %define major 1
 %define libname %mklibname numa %{major}
 %define devname %mklibname numa -d
-%define _disable_lto 1
 
 Summary:	Simple NUMA policy support
 Name:		numactl
 Version:	2.0.14
-Release:	1
+Release:	2
 License:	LGPLv2/GPLv2
 Group:		System/Configuration/Hardware
 Url:		ftp://oss.sgi.com/www/projects/libnuma/download
@@ -28,11 +27,11 @@ a specific NUMA policy.
 
 #----------------------------------------------------------------------------
 
-%package -n	%{libname}
+%package -n %{libname}
 Summary:	Runtime libraries for NUMA policy support
 Group:		System/Libraries
 
-%description -n	%{libname}
+%description -n %{libname}
 This package contains the dynamic libraries for NUMA policy support.
 
 %files -n %{libname}
@@ -40,13 +39,13 @@ This package contains the dynamic libraries for NUMA policy support.
 
 #----------------------------------------------------------------------------
 
-%package -n	%{devname}
+%package -n %{devname}
 Summary:	Headers and libraries for NUMA policy
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	numa-devel = %{version}-%{release}
 
-%description -n	%{devname}
+%description -n %{devname}
 This package contains headers and libraries useful for developing
 applications using different NUMA policies.
 
@@ -66,8 +65,11 @@ applications using different NUMA policies.
 %autosetup -p1
 
 %build
-%setup_compile_flags
+%set_build_flags
 %configure --prefix=/usr --libdir=%{_libdir} --enable-static
+
+sed -i -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
+           -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 %make_build CFLAGS="%{optflags} -I."
 
