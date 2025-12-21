@@ -12,6 +12,11 @@ Url:		ftp://oss.sgi.com/www/projects/libnuma/download
 Source0:	https://github.com/numactl/numactl/releases/download/v%{version}/%{name}-%{version}.tar.gz
 ExclusiveArch:	%{ix86} %{x86_64} ia64 aarch64 %{riscv}
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 %description
 This package contains the `numactl' program to run other programs with
 a specific NUMA policy.
